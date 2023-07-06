@@ -1,7 +1,7 @@
 CC = cc
 FLAGS = -Wall -Wextra -Werror
 NAME = rush01
-SRC = utils.c main.c ##fill_mtz.c
+SRC = utils.c main.c case.c ##fill_mtz.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)

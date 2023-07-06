@@ -1,68 +1,75 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vde-vasc <vde-vasc@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/06 11:26:01 by vde-vasc          #+#    #+#             */
+/*   Updated: 2023/07/06 11:51:18 by vde-vasc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rush01.h"
+
+static int	**start_matriz(void)
+
+{
+	int	**matriz;
+	int	i;
+
+	matriz = malloc(sizeof(int *) * 5);
+	if (!matriz)
+		return (NULL);
+	i = -1;
+	while (++i < 4)
+	{
+		matriz[i] = malloc(sizeof(int) * 5);
+		if (!matriz[i])
+			return (NULL);
+	}
+	matriz[i] = NULL;
+	return (matriz);
+}
 
 void	init_mtz(int *num)
 {
-	int i = 0;
-	int j = 0;
-	int **mtz;
+	int	i;
+	int	j;
+	int	**mtz;
 
-	mtz = (int**)malloc(sizeof(int*) * 4);
+	i = -1;
+	(void)num;
+	mtz = start_matriz();
 	if (!mtz)
-		{
-			write(1, "Error9\n", 7);
-			return ;
-		}
-	while (i <= 3)
 	{
-		mtz[i] = (int*)malloc(sizeof(int) * 4);
-		if (!mtz[i])
-		{
-			write(1, "Error8\n", 7);
-			return ;
-		}
-		i++;
+		write(1, "Error9\n", 7);
+		return ;
 	}
 	i = 0;
-	while (mtz[i] && i <= 3)
+	while (mtz[i] != NULL && i < 4)
 	{
-		j = 0;
-		while (mtz[i][j])
+		j = -1;
+		while (mtz[i][++j])
 		{
-			mtz[i][j]= 0;
-			write(1, mtz[i][j], 1);
-			j++;
+			mtz[i][j] = 0;
+			ft_putnbr(mtz[i][j]);
 		}
 		i++;
 	}
-//	fill_mtz(mtz, num);
 }
 
-int valid_oposite(int *num)
-{
-	int i = 0;
+//fill_mtz na ultima linha by victor
 
-	while (i <= 11)
+int	valid_oposite(int *num)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 12)
 	{
-		if (num[i] == 1)
-		{
-			if (num[i + 4] == 1)
-				return (1);
-		}
-		else if (num[i] == 2)
-		{
-			if (num[i + 4] == 4)
-				return (1);
-		}
-		else if (num[i] == 3)
-		{
-			if (num[i + 4] == 3 || num[i + 4] == 4)
-				return (1);
-		}
-		else if (num[i] == 4)
-		{
-			if (num[i + 4] != 1)
-				return (1);
-		}
+		if (case_logic(num, i) == 1)
+			return (1);
 		i++;
 	}
 	return (0);
@@ -70,16 +77,16 @@ int valid_oposite(int *num)
 
 int	validate_argv(int *num)
 {
-	int i = 0;
+	int	i;
 
-	while (i <= 15)
+	i = -1;
+	while (++i < 16)
 	{
-		if (num[i] != 1 && num[i] != 2 && num[i] != 3 && num[i] != 4)
+		if (num[i] != 1 || num[i] != 2 || num[i] || 3 || num[i] != 4)
 		{
 			write(1, "Error3\n", 7);
 			return (1);
 		}
-		i++;
 	}
 	if (valid_oposite(num) == 1)
 	{
@@ -91,16 +98,16 @@ int	validate_argv(int *num)
 
 int	main(int argc, char **argv)
 {
-	int num[17];
-	int i = 0;
+	int	num[17];
+	int	i;
+	int	j;
 
+	i = 1;
+	j = 0;
 	if (argc == 17)
 	{
-		while (argv[i + 1])
-		{
-			num[i] = ft_atoi(argv[i + 1]);
-			i++;
-		}
+		while (argv[i])
+			num[j++] = ft_atoi(argv[i++]);
 		if (!validate_argv(num))
 			init_mtz(num);
 	}
