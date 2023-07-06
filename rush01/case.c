@@ -1,27 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rush01.h                                           :+:      :+:    :+:   */
+/*   case.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vde-vasc <vde-vasc@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/06 11:46:26 by vde-vasc          #+#    #+#             */
-/*   Updated: 2023/07/06 11:51:58 by vde-vasc         ###   ########.fr       */
+/*   Created: 2023/07/06 11:40:05 by vde-vasc          #+#    #+#             */
+/*   Updated: 2023/07/06 11:43:51 by vde-vasc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RUSH01_H
-# define RUSH01_H
+#include "rush01.h"
 
-# include <unistd.h>
-# include <stdlib.h>
+int	case_logic(int *num, int i)
 
-int		ft_atoi(const char *str);
-int		ft_isspace(char c);
-int		case_logic(int *num, int i);
-int		valid_oposite(int *num);
-void	ft_putnbr(int num);
-void	ft_putchar(char c);
-//void	fill_mtz(int **mtz, int *num);
-
-#endif
+{
+	if (num[i] == 1)
+	{
+		if (num[i + 4] == 1)
+			return (1);
+	}
+	else if (num[i] == 2)
+	{
+		if (num[i + 4] == 4)
+			return (1);
+	}
+	else if (num[i] == 3)
+	{
+		if (num[i + 4] == 3 || num[i + 4] == 4)
+			return (1);
+	}
+	else if (num[i] == 4)
+	{
+		if (num[i + 4] != 1)
+			return (1);
+	}
+	return (0);
+}
